@@ -22,6 +22,12 @@ function setTheme(theme) {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOMContentLoaded");
 
+    footer_year.textContent = new Date().getFullYear();
+
+    if (!localStorage.getItem("consentGranted")) {
+        consent_modal.showModal()
+    }
+
     document.documentElement.classList.toggle(
         "dark",
         localStorage.theme === "dark" ||
@@ -117,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.game.resumeGame();
     });
 
-    settings_fullscreen.addEventListener("change", function (event) {
+    settings_fullscreen.addEventListener("change", function () {
         if (settings_fullscreen.checked) {
             window.game.fullscreen();
         } else {
@@ -125,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_bgm.addEventListener("change", function (event) {
+    settings_bgm.addEventListener("change", function () {
         if (settings_bgm.checked) {
             window.game.startBGM();
         } else {
@@ -133,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_sfx.addEventListener("change", function (event) {
+    settings_sfx.addEventListener("change", function () {
         if (settings_sfx.checked) {
             window.game.startSFX();
         } else {
@@ -141,11 +147,80 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_autosnap.addEventListener("change", function (event) {
+    settings_autosnap.addEventListener("change", function () {
         if (settings_autosnap.checked) {
             window.game.autoSnapOn();
         } else {
             window.game.autoSnapOff();
         }
     });
+});
+
+window.addEventListener("keydown", (event) => {
+    if (consent_modal.open && event.key == "Escape") {
+        event.preventDefault();
+    }
+});
+
+consent_tab_1.addEventListener("change", function () {
+    if (consent_tab_1.checked) {
+        consent_customize.classList.remove("hidden");
+        consent_allow_selection.classList.add("hidden");
+    }
+});
+
+consent_tab_2.addEventListener("change", function () {
+    if (consent_tab_2.checked) {
+        consent_customize.classList.add("hidden");
+        consent_allow_selection.classList.remove("hidden");
+    }
+});
+
+consent_tab_1.addEventListener("change", function () {
+    if (consent_tab_1.checked) {
+        consent_customize.classList.remove("hidden");
+        consent_allow_selection.classList.add("hidden");
+    }
+});
+
+consent_customize.addEventListener("click", () => {
+    consent_tab_2.checked = true;
+    consent_customize.classList.add("hidden");
+    consent_allow_selection.classList.remove("hidden");
+});
+
+consent_allow_selection.addEventListener("click", () => {
+    var consentStatistics = "denied";
+    var consentMarketing = "denied";
+    if(consent_statistics.checked) {
+        consentStatistics = "granted";
+    }
+    if(consent_marketing.checked) {
+        consentMarketing = "granted";
+    }
+    localStorage.setItem("consentGranted", "true");
+    localStorage.setItem("consentStatistics", consentStatistics);
+    localStorage.setItem("consentMarketing", consentMarketing);
+    function gtag() { dataLayer.push(arguments); }
+    gtag("consent", "update", {
+        ad_user_data: consentMarketing,
+        ad_personalization: consentMarketing,
+        ad_storage: consentMarketing,
+        analytics_storage: consentStatistics
+    });
+    consent_modal.close()
+});
+
+consent_allow.addEventListener("click", function() {
+    localStorage.setItem("consentGranted", "true");
+    localStorage.setItem("consentStatistics", "granted");
+    localStorage.setItem("consentMarketing", "granted");
+    function gtag() { dataLayer.push(arguments); }
+    gtag("consent", "update", {
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        ad_storage: "granted",
+        analytics_storage: "granted"
+    });
+    consent_modal.close()
 });

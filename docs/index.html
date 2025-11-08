@@ -2,6 +2,21 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NY326CP2Y5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500,
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-NY326CP2Y5');
+  </script>
   <meta charset="UTF-8" />
   <meta name="author" content="Emerson Estrella" href="https://emersonestrella.dev/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,12 +66,88 @@
   <meta name="twitter:title" content="Shape Puzzle - Animal Adventure" />
   <meta name="twitter:description" content="Little learners help animals come back together one piece at a time" />
   <meta name="twitter:image" content="./hero.png" />
-  <script type="module" crossorigin src="/assets/index-BB4DSbD0.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-C9yodzuN.css">
+  <script type="module" crossorigin src="/assets/index-KyEcqxYY.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BCw5giX3.css">
 </head>
 
 <body>
-  <!-- landing start -->
+
+  <!-- cookie consent:start -->
+  <dialog id="consent_modal" class="modal">
+    <div class="modal-box">
+      <div class="tabs tabs-lift w-full">
+        <label class="tab">
+          <input type="radio" name="consent_tabs" id="consent_tab_1" checked="checked" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+          </svg>
+          Consent
+        </label>
+        <div class="tab-content bg-base-100 border-base-300 p-6 text-left">
+          <h3 class="text-sm font-bold">This website uses cookies</h3>
+          <p class="pt-4 text-sm">
+            We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services.
+          </p>
+        </div>
+        <label class="tab">
+          <input type="radio" name="consent_tabs" id="consent_tab_2" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+          </svg>
+          Details
+        </label>
+        <div class="tab-content bg-base-100 border-base-300 p-6 text-left">
+          <p class="mb-4">Cookies are small text files that can be used by websites to make a user's experience more efficient. This site uses different types of cookies. Some cookies are placed by third party services that appear on our pages.</p>
+          <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4 w-full">
+            <legend class="fieldset-legend">Necessary</legend>
+            <label class="label">
+              <input type="checkbox" checked="checked" class="toggle" disabled />
+              The app cannot function properly without
+            </label>
+          </fieldset>
+          <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4 w-full">
+            <legend class="fieldset-legend">Statistics</legend>
+            <label class="label">
+              <input type="checkbox" checked="checked" id="consent_statistics" class="toggle" />
+              Help to understand how users interact with this app
+            </label>
+          </fieldset>
+          <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4 w-full">
+            <legend class="fieldset-legend">Marketing</legend>
+            <label class="label">
+              <input type="checkbox" checked="checked" id="consent_marketing" class="toggle" />
+              Used to display ads that are relevant for the user
+            </label>
+          </fieldset>
+        </div>
+      </div>
+      <div class="modal-action">
+        <div class="justify-between mb-2">
+          <button class="btn" id="consent_customize">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+            </svg>
+            Customize
+          </button>
+          <button class="btn hidden" id="consent_allow_selection">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+            </svg>
+            Allow Selection
+          </button>
+          <button class="btn btn-primary" id="consent_allow">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            Allow
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!-- cookie consent:end -->
+
+  <!-- landing:start -->
   <div id="landing" class="bg-gray-50 pt-20 dark:bg-gray-900 object-fill">
 
     <label class="flex cursor-pointer gap-2 absolute top-0 right-0 p-5">
@@ -130,7 +221,7 @@
         <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
           <div class="absolute inset-px rounded-lg bg-white dark:bg-gray-800"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
-            <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+            <div class="px-8 pt-8 pb-8 pt-8 sm:px-10 sm:pt-10">
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">Explore, Learn, and Play with Animal Friends</p>
               <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center dark:text-gray-400">Dive into a colorful world where puzzles come to life! In Shape Puzzle, your little one will meet lovable animals, piece together their shapes, and discover the wonders of the animal kingdom—all through play.</p>
             </div>
@@ -140,25 +231,37 @@
         <div class="relative lg:row-span-2">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-4xl lg:rounded-r-4xl dark:bg-gray-800"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
-            <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
+            <div class="px-8 pt-8 pb-8 sm:px-10 sm:pt-10">
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">Safe & Simple Play</p>
               <p class="mt-2 mb-4 max-w-lg text-sm/6 text-gray-600 max-lg:text-center dark:text-gray-400">We believe playtime should be joyful—and worry-free. That’s why Puzzle Pals is designed with your child’s safety and focus in mind:</p>
-              <div>
-                <p class="mt-6 max-w-lg text-2xl text-gray-600 max-lg:text-center dark:text-gray-400">✅ No in-game purchases.</p>
-                <p class="mt-6 max-w-lg text-2xl text-gray-600 max-lg:text-center dark:text-gray-400">✅ Easy-to-use interface for tiny hands.</p>
-                <p class="mt-6 max-w-lg text-2xl text-gray-600 max-lg:text-center dark:text-gray-400">✅ Engaging space built only for learning and fun.</p>
+              <div class="max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
+                <p class="mt-6">✅ No in-game purchases.</p>
+                <p class="mt-6">✅ Easy-to-use interface for tiny hands.</p>
+                <p class="mt-6">✅ Engaging space built only for learning and fun.</p>
               </div>
             </div>
-            <!-- <div class="flex flex-1 items-baseline-last pt-5">
-              <img src="/src/images/bg.jpg" class="object-cover" />
-            </div> -->
+            <img src="/assets/icon-Cei3vIGS.png" class="object-center max-w-1/2 md:max-w-3/4 lg:max-w-3/4 m-auto mt-0 mb-0" />
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5 max-lg:rounded-b-4xl lg:rounded-r-4xl dark:outline-white/15"></div>
         </div>
       </div>
     </div>
+
+    <footer class="footer sm:footer-horizontal bg-indigo-600 dark:gb-indigo-400 text-neutral-content items-center p-4 mt-8">
+      <aside class="grid-flow-col items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z" />
+        </svg>
+        <p>Shape Puzzle <span class="copyleft">&copy;</span> Copyleft <span id="footer_year"></span> - <a href="https://emersonestrella.dev">Emerson Estrella</a></p>
+      </aside>
+      <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+        <a href="https://github.com/shapepuzzle/shapepuzzle.github.io" alt="Source code on Github">
+          <img class="max-w-[24px]" src="/assets/github-mark-white-BsLkggKK.png" />
+        </a>
+      </nav>
+    </footer>
   </div>
-  <!-- landing end -->
+  <!-- landing:end -->
 
   <div id="app" class="hidden">
     <canvas id="canvas"></canvas>
