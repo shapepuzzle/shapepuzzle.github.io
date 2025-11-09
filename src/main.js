@@ -19,13 +19,12 @@ function setTheme(theme) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded");
-
     footer_year.textContent = new Date().getFullYear();
 
     if (!localStorage.getItem("consentGranted")) {
-        consent_modal.showModal()
+        consent_modal.showModal();
     }
 
     document.documentElement.classList.toggle(
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     console.log(localStorage.theme);
 
-    theme_toggle.addEventListener("change", function () {
+    theme_toggle.addEventListener("change", () => {
         if (theme_toggle.checked) {
             setTheme("dark");
         } else {
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(localStorage.theme);
     });
 
-    playNow.addEventListener("click", function () {
+    playNow.addEventListener("click", () => {
         landing.classList.add("hidden");
         app.classList.remove("hidden");
         // GAME START
@@ -66,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(`ScreenOrientation change: ${event.target.type}, ${event.target.angle} degrees.`);
     });
 
-    canvas.addEventListener("fullscreenchange", (event) => {
+    canvas.addEventListener("fullscreenchange", () => {
         if (document.fullscreenElement) {
             settings_fullscreen.checked = true;
         } else {
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     
-    stage_next.addEventListener("click", function () {
+    stage_next.addEventListener("click", () => {
         if (window.game.puzzle.hasVoice) {
             var voice = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
             voice.pause();
@@ -89,10 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
         stage_modal.close()
     });
 
-    stage_voice.addEventListener("click", function () {
+    stage_voice.addEventListener("click", () => {
         if (window.game.puzzle.hasVoice && !stage_voice.getAttribute("disabled")) {
             var voice = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
-            voice.addEventListener("ended", function () {
+            voice.addEventListener("ended", () => {
                 stage_voice.removeAttribute("disabled");
             });
             stage_voice.setAttribute("disabled", true);
@@ -100,10 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    stage_sound.addEventListener("click", function () {
+    stage_sound.addEventListener("click", () => {
         if (window.game.puzzle.hasSound && !stage_sound.getAttribute("disabled")) {
             var sound = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_sound`);
-            sound.addEventListener("ended", function () {
+            sound.addEventListener("ended", () => {
                 stage_sound.removeAttribute("disabled");
             });
             stage_sound.setAttribute("disabled", true);
@@ -117,13 +116,13 @@ document.addEventListener("DOMContentLoaded", function () {
         window.game.pauseGame();
     });
 
-    fab_button_play.addEventListener("click", function () {
+    fab_button_play.addEventListener("click", () => {
         console.log('fab_button_play');
         // fab_button_pause_link.classList.remove("hidden");
         window.game.resumeGame();
     });
 
-    settings_fullscreen.addEventListener("change", function () {
+    settings_fullscreen.addEventListener("change", () => {
         if (settings_fullscreen.checked) {
             window.game.fullscreen();
         } else {
@@ -131,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_bgm.addEventListener("change", function () {
+    settings_bgm.addEventListener("change", () => {
         if (settings_bgm.checked) {
             window.game.startBGM();
         } else {
@@ -139,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_sfx.addEventListener("change", function () {
+    settings_sfx.addEventListener("change", () => {
         if (settings_sfx.checked) {
             window.game.startSFX();
         } else {
@@ -147,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    settings_autosnap.addEventListener("change", function () {
+    settings_autosnap.addEventListener("change", () => {
         if (settings_autosnap.checked) {
             window.game.autoSnapOn();
         } else {
@@ -162,21 +161,21 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
-consent_tab_1.addEventListener("change", function () {
+consent_tab_1.addEventListener("change", () => {
     if (consent_tab_1.checked) {
         consent_customize.classList.remove("hidden");
         consent_allow_selection.classList.add("hidden");
     }
 });
 
-consent_tab_2.addEventListener("change", function () {
+consent_tab_2.addEventListener("change", () => {
     if (consent_tab_2.checked) {
         consent_customize.classList.add("hidden");
         consent_allow_selection.classList.remove("hidden");
     }
 });
 
-consent_tab_1.addEventListener("change", function () {
+consent_tab_1.addEventListener("change", () => {
     if (consent_tab_1.checked) {
         consent_customize.classList.remove("hidden");
         consent_allow_selection.classList.add("hidden");
@@ -199,28 +198,44 @@ consent_allow_selection.addEventListener("click", () => {
         consentMarketing = "granted";
     }
     localStorage.setItem("consentGranted", "true");
-    localStorage.setItem("consentStatistics", consentStatistics);
-    localStorage.setItem("consentMarketing", consentMarketing);
-    function gtag() { dataLayer.push(arguments); }
+    localStorage.setItem("ad_storage", consentMarketing);
+    localStorage.setItem("ad_user_data", consentMarketing);
+    localStorage.setItem("ad_personalization", consentMarketing);   
+    localStorage.setItem("analytics_storage", consentStatistics);
+    localStorage.setItem("functionality_storage", "granted");
+    function gtag() { window.dataLayer.push(arguments); }
     gtag("consent", "update", {
         ad_user_data: consentMarketing,
         ad_personalization: consentMarketing,
         ad_storage: consentMarketing,
-        analytics_storage: consentStatistics
+        analytics_storage: consentStatistics,
+        functionality_storage: "granted"
     });
     consent_modal.close()
 });
 
-consent_allow.addEventListener("click", function() {
+consent_allow.addEventListener("click", () => {
     localStorage.setItem("consentGranted", "true");
-    localStorage.setItem("consentStatistics", "granted");
-    localStorage.setItem("consentMarketing", "granted");
-    function gtag() { dataLayer.push(arguments); }
+    localStorage.setItem("ad_storage", "granted");
+    localStorage.setItem("ad_user_data", "granted");
+    localStorage.setItem("ad_personalization", "granted");   
+    localStorage.setItem("analytics_storage", "granted");
+    localStorage.setItem("functionality_storage", "granted");
+    function gtag() { window.dataLayer.push(arguments); }
     gtag("consent", "update", {
         ad_user_data: "granted",
         ad_personalization: "granted",
         ad_storage: "granted",
-        analytics_storage: "granted"
+        analytics_storage: "granted",
+        functionality_storage: "granted"
     });
     consent_modal.close()
 });
+
+// Load gtag.js script.
+var gtagScript = document.createElement('script');
+gtagScript.async = true;
+gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-NY326CP2Y5';
+
+var firstScript = document.getElementsByTagName('script')[0];
+firstScript.parentNode.insertBefore(gtagScript,firstScript);

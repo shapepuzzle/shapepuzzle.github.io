@@ -82,23 +82,23 @@ export class AssetManager {
         audio.src = url;
         
         const canPlayHandler = () => {
-            // Some browsers need this to ensure the audio is ready
-            audio.play()
-                .then(() => {
-                    audio.pause();
-                    this.assets.set(key, audio);
-                    this.assetLoaded(key);
-                })
-                .catch(e => {
-                    // If autoplay fails, we still consider it loaded
-                    this.assets.set(key, audio);
-                    this.assetLoaded(key);
-                });
+            this.assets.set(key, audio);
+            this.assetLoaded(key);
+            // // Some browsers need this to ensure the audio is ready
+            // audio.play().then(() => {
+            //     audio.pause();
+            //     this.assets.set(key, audio);
+            //     this.assetLoaded(key);
+            // }).catch(e => {
+            //     // If autoplay fails, we still consider it loaded
+            //     this.assets.set(key, audio);
+            //     this.assetLoaded(key);
+            // });
         };
 
         audio.addEventListener('canplaythrough', canPlayHandler, { once: true });
         audio.addEventListener('error', (e) => {
-            reject(new Error(`Failed to load audio: ${url} - ${e.message}`));
+            new Error(`Failed to load audio: ${url} - ${e.message}`);
         });
 
         // Fallback if canplaythrough doesn't fire

@@ -39,7 +39,7 @@ export class Puzzle {
     }
 
     loadAssets() {
-        this.game.assetManager.register(`puzzle_${this.id}_image`, `/game/stages/${this.id}/${this.id}.png`, "image");
+        this.game.assetManager.register(`puzzle_${this.id}_image`, `/stages/${this.id}/${this.id}.png`, "image");
 
         //PIECES & HOLDERS
         for (var i = 0; i < this.numberOfPieces; i++) {
@@ -50,18 +50,19 @@ export class Puzzle {
             this.game.assetManager.register(`puzzle_${this.id}_piece_${i}`, this.piecesImages[i], "image");
         }
 
-        //VOICE & SOUNDS
+        // VOICE
         if (this.hasVoice) {
             document.getElementById("stage_voice").removeAttribute("disabled");
-            this.game.assetManager.register(`puzzle_${this.id}_voice`, `/game/stages/${this.id}/voice.mp3`, "audio");
+            this.game.assetManager.register(`puzzle_${this.id}_voice`, `/stages/${this.id}/voice.mp3`, "audio");
         }
         else {
             document.getElementById("stage_voice").setAttribute("disabled", true);
         }
 
+        // SOUNDS
         if (this.hasSound) {
             document.getElementById("stage_sound").removeAttribute("disabled");
-            this.game.assetManager.register(`puzzle_${this.id}_sound`, `/game/stages/${this.id}/sound.mp3`, "audio");
+            this.game.assetManager.register(`puzzle_${this.id}_sound`, `/stages/${this.id}/sound.mp3`, "audio");
         }
         else {
             document.getElementById("stage_sound").setAttribute("disabled", true);
@@ -205,38 +206,18 @@ export class Puzzle {
         document.getElementById("stage_text").textContent = `Stage ${this.game.stage} completed!`;
         document.getElementById("stage_score").textContent = `${this.numberOfPieces} pieces placed in ${this.timeToComplete - this.remainingTime} seconds.`;
 
-        if (this.has_voice && this.has_sound) {
-            console.log("voice & sound");
-            voice = this.game.assetManager.get(`puzzle_${this.id}_voice`);
-            voice.addEventListener("ended", function () {
+        var chimes = this.game.assetManager.get("chimes");
+        chimes.addEventListener("ended", () => {
+            if (this.hasVoice) {
+                var voice = this.game.assetManager.get(`puzzle_${this.id}_voice`);
+                voice.play();
+            }
+            if (this.hasSound) {
+                var sound = this.game.assetManager.get(`puzzle_${this.id}_sound`);
                 sound.play();
-            });
-            sound = this.game.assetManager.get(`puzzle_${this.id}_sound`);
-            sound.addEventListener("ended", function () {
-                stage_modal.showModal();
-            });
-            voice.play();
-        }
-        else if (this.hasVoice && !this.hasSound) {
-            console.log("voice only");
-            var voice = this.game.assetManager.get(`puzzle_${this.id}_voice`);
-            voice.addEventListener("ended", function () {
-                stage_modal.showModal();
-            });
-            voice.play();
-        }
-        else if (!this.hasVoice && this.hasSound) {
-            console.log("sound only");
-            var sound = this.game.assetManager.get(`puzzle_${this.id}_sound`);
-            sound.addEventListener("ended", function () {
-                stage_modal.showModal();
-            });
-            sound.play();
-        }
-        else {
-            console.log("No voice & no sound");
-            this.game.assetManager.get("chimes").play();
+            }
             stage_modal.showModal();
-        }
+        });
+        chimes.play()
     }
 }
