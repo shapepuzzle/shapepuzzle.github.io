@@ -1,3 +1,4 @@
+import { AssetManager } from './asset-manager';
 import { Holder } from "./holder";
 import { Point2D } from "./point2D";
 import { Piece } from "./piece";
@@ -29,6 +30,7 @@ export class Puzzle {
         this.position = null;
         this.loaded = false;
         this.solved = false;
+        this.assetManager = new AssetManager();
     }
 
     init() {
@@ -39,56 +41,64 @@ export class Puzzle {
     }
 
     loadAssets() {
-        this.game.assetManager.register(`puzzle_${this.id}_image`, `/stages/${this.id}/${this.id}.png`, "image");
+        this.assetManager.register(`puzzle_${this.id}_image`, `/stages/${this.id}/${this.id}.png`, "image");
 
         //PIECES & HOLDERS
         for (var i = 0; i < this.numberOfPieces; i++) {
             //HODLER IMAGE
-            this.game.assetManager.register(`puzzle_${this.id}_holder_${i}`, this.holdersImages[i], "image");
+            this.assetManager.register(`puzzle_${this.id}_holder_${i}`, this.holdersImages[i], "image");
 
             //PIECE IMAGE
-            this.game.assetManager.register(`puzzle_${this.id}_piece_${i}`, this.piecesImages[i], "image");
+            this.assetManager.register(`puzzle_${this.id}_piece_${i}`, this.piecesImages[i], "image");
         }
 
         // VOICE
+        // if (this.hasVoice) {
+        //     document.getElementById("stage_voice").removeAttribute("disabled");
+        //     this.assetManager.register(`puzzle_${this.id}_voice`, `/stages/${this.id}/voice.mp3`, "audio");
+        // }
+        // else {
+        //     document.getElementById("stage_voice").setAttribute("disabled", true);
+        // }
+        stage_voice.setAttribute("disabled", true);
         if (this.hasVoice) {
-            document.getElementById("stage_voice").removeAttribute("disabled");
-            this.game.assetManager.register(`puzzle_${this.id}_voice`, `/stages/${this.id}/voice.mp3`, "audio");
-        }
-        else {
-            document.getElementById("stage_voice").setAttribute("disabled", true);
+            this.assetManager.register(`puzzle_${this.id}_voice`, `/stages/${this.id}/voice.mp3`, "audio");
         }
 
         // SOUNDS
+        // if (this.hasSound) {
+        //     document.getElementById("stage_sound").removeAttribute("disabled");
+        //     this.assetManager.register(`puzzle_${this.id}_sound`, `/stages/${this.id}/sound.mp3`, "audio");
+        // }
+        // else {
+        //     document.getElementById("stage_sound").setAttribute("disabled", true);
+        // }
+        stage_sound.setAttribute("disabled", true);
         if (this.hasSound) {
-            document.getElementById("stage_sound").removeAttribute("disabled");
-            this.game.assetManager.register(`puzzle_${this.id}_sound`, `/stages/${this.id}/sound.mp3`, "audio");
-        }
-        else {
-            document.getElementById("stage_sound").setAttribute("disabled", true);
+            this.assetManager.register(`puzzle_${this.id}_sound`, `/stages/${this.id}/sound.mp3`, "audio");
         }
 
-        this.game.assetManager.onComplete(() => {
+        this.assetManager.onComplete(() => {
             console.log(`All assets loaded (puzzle ${this.id})!`);
             this.placeHolderAndPieces();
         });
-        this.game.assetManager.loadAll();
+        this.assetManager.loadAll();
     }
 
     placeHolderAndPieces() {
         //PIECES & HOLDERS
         for (var i = 0; i < this.numberOfPieces; i++) {
             //HODLER IMAGE
-            var h = this.game.assetManager.get(`puzzle_${this.id}_holder_${i}`);
+            var h = this.assetManager.get(`puzzle_${this.id}_holder_${i}`);
             var holder = this.placeHolder(i, h);
 
             //PIECE IMAGE
-            var p = this.game.assetManager.get(`puzzle_${this.id}_piece_${i}`);
+            var p = this.assetManager.get(`puzzle_${this.id}_piece_${i}`);
             this.placePiece(i, p, holder);
         }
-        if (!this.game.started){
-            this.game.startGame();
-        }
+        // if (!this.game.started){
+        //     this.game.startGame();
+        // }
     }
 
     placeHolderAndPiecesAgain() {
@@ -135,7 +145,7 @@ export class Puzzle {
 
     draw() {
         if (this.solved) {
-            var img = this.game.assetManager.get(`puzzle_${this.id}_image`);
+            var img = this.assetManager.get(`puzzle_${this.id}_image`);
             this.game.context.drawImage(img, (this.game.canvas.width / this.game.scale / 2) - (img.width / 2), (this.game.canvas.height / this.game.scale / 2) - (img.height / 2));
         }
         else {
@@ -206,18 +216,34 @@ export class Puzzle {
         document.getElementById("stage_text").textContent = `Stage ${this.game.stage} completed!`;
         document.getElementById("stage_score").textContent = `${this.numberOfPieces} pieces placed in ${this.timeToComplete - this.remainingTime} seconds.`;
 
-        var chimes = this.game.assetManager.get("chimes");
-        chimes.addEventListener("ended", () => {
-            if (this.hasVoice) {
-                var voice = this.game.assetManager.get(`puzzle_${this.id}_voice`);
-                voice.play();
-            }
-            if (this.hasSound) {
-                var sound = this.game.assetManager.get(`puzzle_${this.id}_sound`);
-                sound.play();
-            }
-            stage_modal.showModal();
-        });
-        chimes.play()
+        this.game.assetManager.get("chimes").play();
+        if (this.hasVoice) {
+            var voice = this.assetManager.get(`puzzle_${this.id}_voice`);
+            voice.addEventListener("ended", () => {
+                stage_voice.removeAttribute("disabled");
+            });
+            voice.play();
+        }
+        if (this.hasSound) {
+            var sound = this.assetManager.get(`puzzle_${this.id}_sound`);
+            sound.addEventListener("ended", () => {
+                stage_sound.removeAttribute("disabled");
+            });
+            sound.play();
+        }
+        stage_modal.showModal();
+        // var chimes = this.game.assetManager.get("chimes");
+        // chimes.addEventListener("ended", () => {
+        //     if (this.hasVoice) {
+        //         var voice = this.assetManager.get(`puzzle_${this.id}_voice`);
+        //         voice.play();
+        //     }
+        //     if (this.hasSound) {
+        //         var sound = this.assetManager.get(`puzzle_${this.id}_sound`);
+        //         sound.play();
+        //     }
+        //     stage_modal.showModal();
+        // });
+        // chimes.play()
     }
 }

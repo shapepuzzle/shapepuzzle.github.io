@@ -71,12 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     stage_next.addEventListener("click", () => {
         if (window.game.puzzle.hasVoice) {
-            var voice = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
+            var voice = window.game.puzzle.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
             voice.pause();
             voice.currentTime = 0;
         }
         if (window.game.puzzle.hasSound) {
-            var sound = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_sound`);
+            var sound = window.game.puzzle.assetManager.get(`puzzle_${window.game.puzzle.id}_sound`);
             sound.pause();
             sound.currentTime = 0;
         }
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     stage_voice.addEventListener("click", () => {
         if (window.game.puzzle.hasVoice && !stage_voice.getAttribute("disabled")) {
-            var voice = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
+            var voice = window.game.puzzle.assetManager.get(`puzzle_${window.game.puzzle.id}_voice`);
             voice.addEventListener("ended", () => {
                 stage_voice.removeAttribute("disabled");
             });
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     stage_sound.addEventListener("click", () => {
         if (window.game.puzzle.hasSound && !stage_sound.getAttribute("disabled")) {
-            var sound = window.game.assetManager.get(`puzzle_${window.game.puzzle.id}_sound`);
+            var sound = window.game.puzzle.assetManager.get(`puzzle_${window.game.puzzle.id}_sound`);
             sound.addEventListener("ended", () => {
                 stage_sound.removeAttribute("disabled");
             });

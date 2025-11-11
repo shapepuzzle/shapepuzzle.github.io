@@ -101,14 +101,14 @@ export class AssetManager {
             new Error(`Failed to load audio: ${url} - ${e.message}`);
         });
 
-        // Fallback if canplaythrough doesn't fire
-        setTimeout(() => {
-            if (!this.assets.has(key)) {
-                audio.removeEventListener('canplaythrough', canPlayHandler);
-                this.assets.set(key, audio);
-                this.assetLoaded(key);
-            }
-        }, 3000);
+        // // Fallback if canplaythrough doesn't fire
+        // setTimeout(() => {
+        //     if (!this.assets.has(key)) {
+        //         audio.removeEventListener('canplaythrough', canPlayHandler);
+        //         this.assets.set(key, audio);
+        //         this.assetLoaded(key);
+        //     }
+        // }, 3000);
     }
 
     // loadAudio(key, url) {

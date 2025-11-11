@@ -35,35 +35,36 @@ export class Game {
         this.scaledHeight = (this.canvas.height / this.scale) / 2;
         console.log('scaled_width: ' + this.scaledWidth);
         console.log('scaled_height: ' + this.scaledHeight);
-    }
-
-    init() {
+        
+        // assets
         this.assetManager = new AssetManager();
-
         // callbacks
         this.assetManager.onProgress(progress => {
             console.log(`Loading: ${(progress * 100).toFixed(1)}%`);
         });
-
         this.assetManager.onError(error => {
             console.error('Asset loading error:', error);
         });
-
-        // base assets
+        this.assetManager.onComplete(() => {
+            if (!this.started){
+                this.startGame();
+            }
+        });
         this.assetManager.register("drip", "/audio/drip.mp3", "audio");
         this.assetManager.register("twang", "/audio/twang.mp3", "audio");
         this.assetManager.register("bgm", "/audio/bgm.mp3", "audio");
         this.assetManager.register("chimes", "/audio/chimes.mp3", "audio");
-        // this.assetManager.loadAll();
+        this.assetManager.loadAll();
 
-        // here ?
         this.autoSnap = true;
         this.moving = true;
         this.selected = null;
         this.isOver = false;
         this.clockInterval = null;
         this.pointer = new Pointer(this);
+    }
 
+    init() {
         this.puzzles = [
             new Puzzle(
                 "001",
@@ -303,7 +304,7 @@ export class Game {
         }
 
         //DEBUG
-        if (this.debug && this.assetManager.isLoaded) {
+        if (this.debug && this.assetManager.isLoaded && this.puzzle.assetManager.isLoaded) {
             document.getElementById("debug_x").value = this.pointer.x;
             document.getElementById("debug_y").value = this.pointer.y;
 
@@ -404,8 +405,8 @@ export class Game {
         } else {
             this.isOver = false;
             this.stage++;
-            
-            this.init();
+            this.puzzle = this.puzzles[this.stage-1];
+            this.puzzle.init();
             this.startGame();
             this.resumeGame();
         }
@@ -424,7 +425,7 @@ export class Game {
     startGame() {
         if (!this.started) {
             window.scrollTo(0, 0);
-            stage_modal.close()
+            stage_modal.close();
             landing.classList.add("hidden");
             app.classList.remove("hidden");
             this.gameInterval = setInterval(() => { this.puzzle.remainingTime--; }, 1000);
@@ -439,24 +440,25 @@ export class Game {
 
     pauseGame() {
         if (!this.paused) {
-            console.log('Pause')
+            console.log('Pause');
+            this.selected = null;
             clearInterval(this.gameInterval);
             this.paused = true;
             cancelAnimationFrame(this.animationFrameRequestID);
             if (settings_bgm.checked) {
-                window.game.assetManager.get("bgm").pause();
+                this.assetManager.get("bgm").pause();
             }
         }
     }
 
     resumeGame() {
         if (this.paused) {
-            console.log('Resume')
+            console.log('Resume');
             this.paused = false;
             this.gameInterval = setInterval(() => { this.puzzle.remainingTime--; }, 1000);
             this.animationFrameRequestID = requestAnimationFrame(() => {this.loop()});
             if (settings_bgm.checked) {
-                window.game.assetManager.get("bgm").play();
+                this.assetManager.get("bgm").play();
             }
         }
     }
@@ -507,4 +509,16 @@ export class Game {
             window.game.puzzle.placeHolderAndPiecesAgain();
         }
     }
+
+    work4me() {
+        this.puzzle.pieces.forEach((piece) => {
+            piece.position.x = piece.holder.position.x;
+            piece.position.y = piece.holder.position.y;
+            this.selected = piece;
+            this.selected.placed = true;
+            this.selected.movable = false;
+            this.puzzle.placedPieces.push(this.selected);
+        });
+    }
+
 }
