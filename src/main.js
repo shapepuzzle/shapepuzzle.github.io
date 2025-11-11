@@ -112,13 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fab_button_pause.addEventListener("click", () => {
         console.log('fab_button_pause');
-        // fab_button_pause_link.classList.add("hidden");
         window.game.pauseGame();
     });
 
     fab_button_play.addEventListener("click", () => {
         console.log('fab_button_play');
-        // fab_button_pause_link.classList.remove("hidden");
         window.game.resumeGame();
     });
 
@@ -152,6 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             window.game.autoSnapOff();
         }
+    });
+
+    settings_button_close.addEventListener("click", () => {
+        window.game.resumeGame();
     });
 });
 

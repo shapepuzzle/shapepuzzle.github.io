@@ -22,3 +22,7 @@
   display:inline-block;
   transform: rotate(180deg);
 }
+
+#fab_button_pause {
+  pointer-events: auto !important;
+}

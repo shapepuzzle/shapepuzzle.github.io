@@ -443,6 +443,9 @@ export class Game {
             clearInterval(this.gameInterval);
             this.paused = true;
             cancelAnimationFrame(this.animationFrameRequestID);
+            if (settings_bgm.checked) {
+                window.game.assetManager.get("bgm").pause();
+            }
         }
     }
 
@@ -452,6 +455,9 @@ export class Game {
             this.paused = false;
             this.gameInterval = setInterval(() => { this.puzzle.remainingTime--; }, 1000);
             this.animationFrameRequestID = requestAnimationFrame(() => {this.loop()});
+            if (settings_bgm.checked) {
+                window.game.assetManager.get("bgm").play();
+            }
         }
     }
 

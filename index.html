@@ -315,6 +315,7 @@
 
   <div id="app" class="hidden">
     <canvas id="canvas"></canvas>
+
     <div class="fab fab-flower">
       <!-- a focusable div with tabindex is necessary to work on all browsers. role="button" is necessary for accessibility -->
       <div tabindex="0" role="button" id="fab_button_pause" class="btn btn-circle btn-lg btn-error">
@@ -325,7 +326,7 @@
       </div>
 
       <!-- Main Action button replaces the original button when FAB is open -->
-      <span class="btn btn-circle btn-lg btn-success" id="fab_button_play">
+      <span class="fab-main-action btn btn-circle btn-lg btn-success" id="fab_button_play">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -335,7 +336,7 @@
 
       <!-- buttons that show up when FAB is open -->
       <div class="tooltip tooltip-left" data-tip="Debug">
-        <button class="btn btn-circle btn-lg" onclick="Alpine.$data(debugging).open = true">
+        <button class="btn btn-circle btn-lg" onclick="Alpine.$data(debugging).open = !Alpine.$data(debugging).open">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -418,7 +419,7 @@
         <form method="dialog">
           <div class="modal-action">
             <!-- if there is a button in form, it will close the modal -->
-            <button class="btn grow">
+            <button class="btn grow" id="settings_button_close">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -430,7 +431,7 @@
       </div>
     </dialog>
 
-    <button class="btn hidden" onclick="Alpine.$data(debugging).open = !Alpine.$data(debugging).open">debug</button>
+    <button class="btn hidden" onclick="Alpine.$data(debugging).open = !Alpine.$data(debugging).open; debugging.focus();">debug</button>
     <div id="debugging" x-data="{ open: false }" x-show="open">
       <div class="size-fit glass rounded-box fixed bottom-0 flex">
         <button class="btn btn-xs rounded-box absolute right-0 top-0" x-on:mouseup="open = false">
